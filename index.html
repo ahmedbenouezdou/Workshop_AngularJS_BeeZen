@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 
 <head>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title> BeeZen Meetup</title>
     <script src="src/libs/angular/angular.js"></script>
     <link href="src/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -12,25 +12,29 @@
 
 <body ng-app>
 
-<div ng-include="'src/view/nav.html'"></div>
+    <div ng-include="'src/view/nav.html'"></div>
 
-<div class="container">
-    <div class="jumbotron">
-        <div class="container">
-
-            <div class="page-header">
-                <h1>Premier pas avec AngularJS</h1>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row ">
+                <div class="col-lg-3 input-group">
+                    <span class="input-group-addon" id="basic-addon1">Prénom</span>
+                    <input type="text" ng-model="prenom" class="form-control" placeholder="prenom"
+                           aria-describedby="basic-addon1">
+                </div>
             </div>
+
             <div class="row">
-                <div class="col-lg-5"></div>
-                <div class="col-lg-2"><div class="alert alert-info" role="alert">  {{1+1}}</div></div>
-                <div class="col-lg-5"></div>
+                <div class="col-sm-6 col-md-4">
+
+                    <p>Bonjour <span ng-bind="prenom"></span>
+
+                </div>
             </div>
-
-
         </div>
     </div>
-</div>
+    </div>
+    </div>
 </body>
 
 </html>

@@ -5,36 +5,45 @@
 
     <title> BeeZen Meetup</title>
     <script src="src/libs/angular/angular.js"></script>
+    <script src="src/js/app.js"></script>
     <link href="src/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="src/libs/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
 
 </head>
 
-<body ng-app>
+<body ng-app="app">
 
-<div ng-include="'src/view/nav.html'"></div>
+    <div ng-include="'src/view/nav.html'"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="input-group">
-                      <span class="input-group-addon" id="basic-addon1">Liste tache
+    <div class="container" ng-controller="taskCrt">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">{{titleTask}}
                       </span>
-                <input type="text" class="form-control" placeholder="Ajouter une tache ..." ng-model="tasks" ng-list>
+                    <input type="text" class="form-control" placeholder="Ajouter une tache ..." ng-model="newTask">
+                 <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addTask()"><span class="glyphicon glyphicon-plus"></span></button></span>
+                </div>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="task in listTasks">
+                        <span class="badge" ><span class="glyphicon glyphicon-trash" ng-click="deleteTask($index)"></span></span>
+                        <span class="badge">{{$index}}</span>
+                        {{task}}
+                    </li>
+                </ul>
 
-        <div class="col-lg-6">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="alert alert-success" style="margin-bottom: 5px;height: 40px;padding-top: 7px;"
-                    ng-repeat="task in tasks">{{task}}
-                </li>
-            </ul>
-
+            </div>
         </div>
     </div>
 
-</div>
+
+    </div>
 </body>
 
 </html>

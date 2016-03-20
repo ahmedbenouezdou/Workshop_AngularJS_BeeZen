@@ -4,7 +4,7 @@ app.directive("bzDirective",function(){
    return {
             restrict: '',
             templateUrl: './src/view/directive.html',
-            controller: function controllerConstructor($scope){
+            controller: function($scope){
                 $scope.titleTask = "liste de tache";
                 $scope.listTasks = [];
                 $scope.newTask = "";

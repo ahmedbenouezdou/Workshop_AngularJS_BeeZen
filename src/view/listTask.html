@@ -1,0 +1,51 @@
+<div class="container" ng-controller="taskCrt">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">{{titleTask}}
+                      </span>
+                <input type="text" class="form-control" placeholder="Ajouter une tache ..." ng-model="newTask">
+                 <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addTask()"><span class="glyphicon glyphicon-plus"></span></button></span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            <ul class="list-group">
+
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Liste des tâches</div>
+
+                    <!-- Table -->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr >
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th> Date </th>
+                            <th> </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="task in listTasks">
+                            <td>{{task.id}}</td>
+                            <td>{{task.titre}}</td>
+                            <td>{{task.dateProgrom}}</td>
+                            <td><span class="badge" ><span class="glyphicon glyphicon-trash" ng-click="deleteTask($index)"></span></span></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+</div>

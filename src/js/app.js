@@ -1,26 +1,60 @@
-var app=angular.module("app",[]);
+var app = angular.module("app", []);
 
-app.directive("bzDirective",function(){
-   return {
-            restrict: '',
-            templateUrl: './src/view/directive.html',
-            controller: function controllerConstructor($scope){
-                $scope.titleTask = "liste de tache";
-                $scope.listTasks = [];
-                $scope.newTask = "";
 
-                $scope.addTask = function addTask() {
-                    if ($scope.newTask !== "")
-                        $scope.listTasks.push($scope.newTask);
-                    $scope.newTask = "";
-                }
+app.controller("taskCrt", function ($scope, taskService) {
 
-                $scope.deleteTask = function deleteTask(index) {
+    function init() {
+        $scope.listTasks = taskService.getAll();
+        $scope.titleTask = "liste de tache";
 
-                    $scope.listTasks.splice(index, 1);
-
-                }
-       }
+        $scope.newTask = "";
     }
 
+    $scope.addTask = function addTask() {
+        if ($scope.newTask !== "") {
+
+            $scope.listTasks = taskService.addTask(dataTask($scope.newTask ));
+        }
+
+        $scope.newTask = "";
+
+    }
+
+    $scope.deleteTask = function deleteTask(index) {
+        console.log(index);
+        $scope.listTasks = taskService.deleteTask(index);
+    }
+
+    function dataTask(newTask ){
+        return {id: $scope.listTasks.length + 1, titre: newTask, dateProgrom: "2016-03-02"};
+    }
+    init();
+
+});
+
+
+app.service("taskService", function () {
+    var list = [{
+        id: 0001,
+        titre: "task 1",
+        dateProgrom: "2016-03-02"
+    }, {
+        id: 0002,
+        titre: "task 1",
+        dateProgrom: "2016-03-02"
+    }]
+    this.getAll = function getAll() {
+        return list;
+    }
+
+    this.addTask = function addTask(data) {
+        list.push(data);
+        return list;
+    }
+
+    this.deleteTask = function deleteTask(index) {
+
+        list.splice(index, 1);
+        return list;
+    }
 });

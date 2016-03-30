@@ -1,10 +1,16 @@
 var app = angular.module("app", []);
 
+app.constant("myConfig", {
+    "url": "http://localhost",
+    "port": "9000"
+})
 
 app.controller("taskCrt", function ($scope, taskService) {
 
     function init() {
-        $scope.listTasks = taskService.getAll();
+        taskService.getAll().success(function (data) {
+            $scope.listTasks = data;
+        });
         $scope.titleTask = "liste de tache";
 
         $scope.newTask = "";
@@ -12,8 +18,10 @@ app.controller("taskCrt", function ($scope, taskService) {
 
     $scope.addTask = function addTask() {
         if ($scope.newTask !== "") {
-
-            $scope.listTasks = taskService.addTask(dataTask($scope.newTask ));
+            var dataInsert = dataTask($scope.newTask);
+            taskService.addTask(index).success(function () {
+                $scope.listTasks.splice(dataInsert);
+            });
         }
 
         $scope.newTask = "";
@@ -21,40 +29,44 @@ app.controller("taskCrt", function ($scope, taskService) {
     }
 
     $scope.deleteTask = function deleteTask(index) {
-        console.log(index);
-        $scope.listTasks = taskService.deleteTask(index);
+
+        taskService.deleteTask(index).success(function () {
+            $scope.listTasks.splice(index, 1);
+        });
+
     }
 
-    function dataTask(newTask ){
-        return {id: $scope.listTasks.length + 1, titre: newTask, dateProgrom: "2016-03-02"};
+    function dataTask(newTask) {
+        return {id: $scope.listTasks.length, titre: newTask, dateProgrom: "2016-03-02"};
     }
+
     init();
 
 });
 
 
-app.service("taskService", function () {
-    var list = [{
-        id: 0001,
-        titre: "task 1",
-        dateProgrom: "2016-03-02"
-    }, {
-        id: 0002,
-        titre: "task 1",
-        dateProgrom: "2016-03-02"
-    }]
+app.service("taskService", function ($http, myConfig) {
+
     this.getAll = function getAll() {
-        return list;
+        return $http.get(myConfig.url + ":" + myConfig.port + "/serverGetAll");
     }
 
     this.addTask = function addTask(data) {
-        list.push(data);
-        return list;
+
+       return $http({
+            method: "post",
+            url: myConfig.url + ":" + myConfig.port + "/serverPostAdd",
+            data: data
+        });
+
+
     }
 
     this.deleteTask = function deleteTask(index) {
-
-        list.splice(index, 1);
-        return list;
+        return $http({
+            method: "delete",
+            url: myConfig.url + ":" + myConfig.port + "/serverDelete",
+            data: {index:index}
+        });
     }
 });

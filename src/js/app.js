@@ -1,6 +1,6 @@
 var app=angular.module("app",[]);
 
-app.directive("bzDirective",function(){
+app.directive("beezenDirective",function(){
    return {
             restrict: '',
             templateUrl: './src/view/directive.html',

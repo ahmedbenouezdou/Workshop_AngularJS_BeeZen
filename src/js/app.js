@@ -3,7 +3,28 @@ var app = angular.module("app", []);
 app.constant("myConfig", {
     "url": "http://localhost",
     "port": "9000"
-})
+});
+
+
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+
+        when('/', {
+            templateUrl: './view/listTask.htm',
+            controller: 'taskCrt'
+        }).
+
+        when('/add', {
+            templateUrl: './view/addTask.htm',
+            controller: 'addTaskCrt'
+        }).
+
+        otherwise({
+            redirectTo: '/'
+        });
+
+}]);
+
 
 app.controller("taskCrt", function ($scope, taskService) {
 
